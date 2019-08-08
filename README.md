@@ -1,6 +1,6 @@
 # lab3_TELE4642
 
-USAGE: 
+USAGE:  
 topo.py:  
         $sudo python topo.py
  
