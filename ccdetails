@@ -1,0 +1,122 @@
+[
+    {
+        "CreditCard": {
+            "IssuingNetwork": "Master Card",
+            "CardNumber": "5400138633152320",
+            "Name": "Ryan Taylor",
+            "Address": "Laurel Lane 104",
+            "Country": "Armenia",
+            "CVV": "115",
+            "Limit": "1878$",
+            "Exp": "12/2019"
+        }
+    },
+    {
+        "CreditCard": {
+            "IssuingNetwork": "Master Card",
+            "CardNumber": "5163311996397439",
+            "Name": "Emily Collins",
+            "Address": "Country Club Road 142",
+            "Country": "Netherlands",
+            "CVV": "126",
+            "Limit": "4506$",
+            "Exp": "06/2020"
+        }
+    },
+    {
+        "CreditCard": {
+            "IssuingNetwork": "Master Card",
+            "CardNumber": "5577039625742341",
+            "Name": "Samantha Turner",
+            "Address": "Jefferson Avenue 30",
+            "Country": "Greenland",
+            "CVV": "913",
+            "Limit": "1900$",
+            "Exp": "01/2021"
+        }
+    },
+    {
+        "CreditCard": {
+            "IssuingNetwork": "Master Card",
+            "CardNumber": "5384582244460533",
+            "Name": "Emma Robinson",
+            "Address": "Garfield Avenue 75",
+            "Country": "Italy",
+            "CVV": "316",
+            "Limit": "4748$",
+            "Exp": "12/2023"
+        }
+    },
+    {
+        "CreditCard": {
+            "IssuingNetwork": "Master Card",
+            "CardNumber": "5179033223566550",
+            "Name": "Jes Allen",
+            "Address": "Country Club Road 51",
+            "Country": "Pakistan",
+            "CVV": "921",
+            "Limit": "3788$",
+            "Exp": "01/2020"
+        }
+    },
+    {
+        "CreditCard": {
+            "IssuingNetwork": "Master Card",
+            "CardNumber": "5216624430416251",
+            "Name": "James Anderson",
+            "Address": "Forest Street 82",
+            "Country": "Singapore",
+            "CVV": "157",
+            "Limit": "2363$",
+            "Exp": "07/2020"
+        }
+    },
+    {
+        "CreditCard": {
+            "IssuingNetwork": "Master Card",
+            "CardNumber": "5227169858761835",
+            "Name": "Tyler Thomas",
+            "Address": "Warren Avenue 99",
+            "Country": "Nauru",
+            "CVV": "914",
+            "Limit": "1425$",
+            "Exp": "12/2019"
+        }
+    },
+    {
+        "CreditCard": {
+            "IssuingNetwork": "Master Card",
+            "CardNumber": "5266127340499168",
+            "Name": "Alexis Hernandez",
+            "Address": "Andover Court 46",
+            "Country": "Christmas Island",
+            "CVV": "214",
+            "Limit": "3414$",
+            "Exp": "12/2022"
+        }
+    },
+    {
+        "CreditCard": {
+            "IssuingNetwork": "Master Card",
+            "CardNumber": "5392699770957805",
+            "Name": "Matthew Clark",
+            "Address": "Rose Street 24",
+            "Country": "Colombia",
+            "CVV": "939",
+            "Limit": "359$",
+            "Exp": "11/2019"
+        }
+    },
+    {
+        "CreditCard": {
+            "IssuingNetwork": "Master Card",
+            "CardNumber": "5552866600674712",
+            "Name": "Landon Jackson",
+            "Address": "Williams Street 83",
+            "Country": "Bahrain",
+            "CVV": "523",
+            "Limit": "3964$",
+            "Exp": "12/2020"
+        }
+    }
+]
