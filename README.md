@@ -13,4 +13,4 @@ Server-side:
 $sudo python det.py -L -c ./config-server.json -p dns  
   
 Client-side:  
-$sudo python det.py -L -c ./config-client.json -p dns
+$sudo python det.py -L -c ./config-client.json -f /etc/target_file -p dns
