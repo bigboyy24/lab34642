@@ -7,7 +7,8 @@ topo.py:
 ryuapp.py:  
         $ryu-manager ryuapp1.py  
   
-DET tool: 
+DET tool:
+  
 Server-side:  
 $sudo python det.py -L -c ./config-server.json -p dns  
   
