@@ -21,7 +21,12 @@ from ryu.ofproto import ofproto_v1_3
 from ryu.lib.packet import packet
 from ryu.lib.packet import ethernet
 from ryu.lib.packet import ether_types
+from ryu.lib import pcaplib
+from ryu.lib.packet import ipv4
+from ryu.lib.packet import in_proto
+import dpkt
 
+print("\n HEY IT WORKS\n")
 
 class SimpleSwitch13(app_manager.RyuApp):
     OFP_VERSIONS = [ofproto_v1_3.OFP_VERSION]
@@ -29,6 +34,7 @@ class SimpleSwitch13(app_manager.RyuApp):
     def __init__(self, *args, **kwargs):
         super(SimpleSwitch13, self).__init__(*args, **kwargs)
         self.mac_to_port = {}
+        self.pcap_writer = pcaplib.Writer(open('pcapnew1.pcap','wb'))
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, ev):
@@ -78,10 +84,52 @@ class SimpleSwitch13(app_manager.RyuApp):
 
         pkt = packet.Packet(msg.data)
         eth = pkt.get_protocols(ethernet.ethernet)[0]
+        #flag = 0
 
+       # not_allowed = False
+#********************************************************************************************
+        ip = pkt.get_protocol(ipv4.ipv4)
+
+        if ip:
+        	if ip.proto == in_proto.IPPROTO_UDP:
+	        	self.pcap_writer.write_pkt(msg.data)
+	        	pcap0 = dpkt.pcap.Reader(open('pcapnew1.pcap','rb'))
+
+	        	if pcap0:
+	        		for ts, buf in pcap0:
+	        			eth0 = dpkt.ethernet.Ethernet(buf)
+	        			ip0 = eth0.data
+	        			if ip0.p:
+		        			if ip0.p !=17:
+		        				continue
+		        			try:
+		        				udp = ip0.data
+		        			except: 
+		        				continue
+		        			if udp.sport !=53 and udp.dport!=53:
+		        				continue
+		        			try:
+		        				dns = dpkt.dns.DNS(udp.data)
+		        			except:
+		        				continue
+		        			if dns.qr != dpkt.dns.DNS_R:
+		        				continue
+		        			if dns.rcode != dpkt.dns.DNS_RCODE_NOERR:
+		        				continue
+		        			for qname in dns.qd:
+		        				self.logger.info("The domain name ***** %s", qname.name)
+		        				print("{}\n".format(qname.name))
+				else:		
+					self.logger.info("NO PCAP **********")
+		#self.logger.info("#######################")
+		#self.logger.info("sites visted")
+		#if not_allowed == False:
+      
+        '''
         if eth.ethertype == ether_types.ETH_TYPE_LLDP:
             # ignore lldp packet
             return
+            '''
         dst = eth.dst
         src = eth.src
 
@@ -102,18 +150,18 @@ class SimpleSwitch13(app_manager.RyuApp):
 
         # install a flow to avoid packet_in next time
         if out_port != ofproto.OFPP_FLOOD:
-            match = parser.OFPMatch(in_port=in_port, eth_dst=dst, eth_src=src)
+            match = parser.OFPMatch(in_port=in_port, eth_dst=dst)
             # verify if we have a valid buffer_id, if yes avoid to send both
             # flow_mod & packet_out
-            if msg.buffer_id != ofproto.OFP_NO_BUFFER:
-                self.add_flow(datapath, 1, match, actions, msg.buffer_id)
-                return
-            else:
-                self.add_flow(datapath, 1, match, actions)
-        data = None
-        if msg.buffer_id == ofproto.OFP_NO_BUFFER:
-            data = msg.data
+            self.add_flow(datapath, 1, match, actions)
+       
+       	if out_port != ofproto.OFPP_FLOOD:
+            match = parser.OFPMatch(in_port=in_port, eth_dst=dst)
+            self.add_flow(datapath, 1, match, actions)
 
-        out = parser.OFPPacketOut(datapath=datapath, buffer_id=msg.buffer_id,
-                                  in_port=in_port, actions=actions, data=data)
+        # construct packet_out message and send it.
+        out = parser.OFPPacketOut(datapath=datapath,
+                                  buffer_id=ofproto.OFP_NO_BUFFER,
+                                  in_port=in_port, actions=actions,
+                                  data=msg.data)
         datapath.send_msg(out)

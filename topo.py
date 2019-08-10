@@ -4,7 +4,7 @@ from mininet.util import dumpNodeConnections
 from mininet.log import setLogLevel
 from mininet.cli import CLI
 from mininet.node import RemoteController
-from mininet.link import Intf
+#from mininet.link import Intf
 
 class MyTopo( Topo ):
     "Simple topology example."
@@ -23,7 +23,7 @@ class MyTopo( Topo ):
         fourthHost= self.addHost( 'h4' )
 
         mainSwitch = self.addSwitch( 's1' )
- #       self.Intf('eth0', node = mainSwitch)
+       # add = Intf('eth0', node = mainSwitch)
        
 
         # Add links
@@ -43,7 +43,7 @@ def main():
     net.start()
 
     dumpNodeConnections(net.hosts)
-    # net.staticArp()  # Not needed if autoStaticArp=True
+    net.staticArp()  # Not needed if autoStaticArp=True
     CLI(net)
     net.stop()
 

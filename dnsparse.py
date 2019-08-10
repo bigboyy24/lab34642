@@ -20,7 +20,7 @@ class SimpleSwitch13(app_manager.RyuApp):
     def __init__(self, *args, **kwargs):
         super(SimpleSwitch13, self).__init__(*args, **kwargs)
         self.mac_to_port = {}
-        self.pcap_writer=pcaplib.Writer(open('mypcap3.pcap','wb'))
+        self.pcap_writer= pcaplib.Writer(open('pcap12.pcap'))
         self.blockthis={"anonimity.com":0}
         self.allsites={}
 
@@ -73,12 +73,12 @@ class SimpleSwitch13(app_manager.RyuApp):
         pkt = packet.Packet(msg.data)
         eth = pkt.get_protocols(ethernet.ethernet)[0]
 
-        not_allowed=False
+        not_allowed= 0
         ip=pkt.get_protocol(ipv4.ipv4)
         if ip:
             
             self.pcap_writer.write_pkt(msg.data)
-            pcap0=dpkt.pcap.Reader(open('mypcap3.pcap','rb'))
+            pcap0=dpkt.pcap.Reader(open('pcap12.pcap'))
               
             if pcap0:
                 for ts,buf in pcap0:
@@ -116,7 +116,7 @@ class SimpleSwitch13(app_manager.RyuApp):
                         for qname in dns.qd:
                             self.logger.info("The domain name ************** %s ",qname.name)
                             if qname.name in self.blockthis:
-                                not_allowed=True
+                                not_allowed= 1
                                 self.blockthis[qname.name]+=1
                             else if qname.name in self.allsites:
                                 self.allsites[qname.name]+=1
@@ -127,7 +127,8 @@ class SimpleSwitch13(app_manager.RyuApp):
 
         self.logger.info("########################")
         self.logger.info("Sites visited    %s",self.allsites.keys())
-        if not_allowed==False:
+        
+        if not_allowed == 0:
             if eth.ethertype == ether_types.ETH_TYPE_LLDP:
                 # ignore lldp packet
                 return
