@@ -27,6 +27,7 @@ from ryu.lib.packet import in_proto
 import dpkt
 
 
+
 print("\n HEY IT WORKS\n")
 
 class SimpleSwitch13(app_manager.RyuApp):
@@ -130,18 +131,39 @@ class SimpleSwitch13(app_manager.RyuApp):
 		        				self.logger.info("The domain name ************ %s \n",qname.name)
 		        				domain = qname.name
 		        				d_len = len(domain)
-		        				for g in range(0:d_len -1)
-		        					if domain[g] != '.'
-		        					
+		        			
+		        				sub =''
+		        				subs =[]
+		        				#print("******************\n")
+		        				#print(type(domain))
+		        				#print("*****************\n")
+		        				
+
+		        				for i in domain:
+		        					if i!= '.':
+		        						sub = sub + i
+	        						else:
+		        						subs.append(sub)
+		        						sub =''
+
+		        				subs.append(sub)
+		        				num_of_subs=len(subs)
+		        				upper = []
+		        				lower = []
+		        				number = []				
+		        				
+		        				for i in subs:
+		        					upper.append(sum(1 for c in i if c.isupper()))
+		        					lower.append(sum(1 for c in i if c.islower()))
+		        					number.append(sum(1 for c in i if c.isdigit()))
 
 		        				#print('{}'.format(domain))
 		        				#Analysing the subdomain
-				else:		
-					self.logger.info("NO PCAP **********")
-		#self.logger.info("#######################")
-		#self.logger.info("sites visted")
-		#if not_allowed == False:
-      
+								#print ("Upper data is {} \n".format(upper))
+								#print("Lower data is {}\n".format(lower))
+								#print("Number data is {}\n".format(number))
+				else:			
+					self.logger.info("NO PCAP **********")    
         '''
         if eth.ethertype == ether_types.ETH_TYPE_LLDP:
             # ignore lldp packet

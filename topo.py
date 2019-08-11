@@ -4,7 +4,7 @@ from mininet.util import dumpNodeConnections
 from mininet.log import setLogLevel
 from mininet.cli import CLI
 from mininet.node import RemoteController
-#from mininet.link import Intf
+from mininet.link import Link, Intf, TCLink
 
 class MyTopo( Topo ):
     "Simple topology example."
@@ -16,14 +16,14 @@ class MyTopo( Topo ):
         Topo.__init__( self )
 
         # Add hosts and switches
-        
+        intfName = 'eth1'
         firstHost = self.addHost( 'h1' )
         secondHost = self.addHost( 'h2' )
         thirdHost = self.addHost( 'h3' )
         fourthHost= self.addHost( 'h4' )
 
         mainSwitch = self.addSwitch( 's1' )
-       # add = Intf('eth0', node = mainSwitch)
+        #_intf = Intf( intfName , node=mainSwitch)    
        
 
         # Add links
@@ -39,7 +39,7 @@ def main():
     setLogLevel('info')
     tp = MyTopo()
     net = Mininet(tp, controller=RemoteController(ip='127.0.0.1', name='RyuController'), autoStaticArp=True)
-   # net.addNAT().configDefault()
+    net.addNAT().configDefault()
     net.start()
 
     dumpNodeConnections(net.hosts)
