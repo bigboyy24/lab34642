@@ -39,7 +39,7 @@ def main():
     setLogLevel('info')
     tp = MyTopo()
     net = Mininet(tp, controller=RemoteController(ip='127.0.0.1', name='RyuController'), autoStaticArp=True)
-    net.addNAT().configDefault()
+   # net.addNAT().configDefault()
     net.start()
 
     dumpNodeConnections(net.hosts)

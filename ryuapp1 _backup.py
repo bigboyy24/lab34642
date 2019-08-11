@@ -89,7 +89,7 @@ class SimpleSwitch13(app_manager.RyuApp):
 #********************************************************************************************
         ip = pkt.get_protocol(ipv4.ipv4)
         #type(ip)
-        #Defines the source packet to be analysed for malicious activity
+        #Defines the source packet 
         src_ip = ip.src
         print src_ip
 
@@ -110,32 +110,27 @@ class SimpleSwitch13(app_manager.RyuApp):
                     	#self.logger.info("The logger ip packet %s",ip0)
 	        			if ip0.p:
 		        			if ip0.p !=17:
-        						#print('Hello WOrld1\n')	
+        						print('Hello WOrld1\n')	
 		        				continue
 		        			try:
 		        				udp = ip0.data
-		        				#print('Hello WOrld2\n')
+		        				print('Hello WOrld2\n')
 		        			except: 
 		        				continue
 		        			if udp.sport !=53 and udp.dport!=53:
-		        				#print('Hello WOrld3\n')
+		        				print('Hello WOrld3\n')
 		        				continue
 		        			try:
 		        				dns = dpkt.dns.DNS(udp.data)
-		        				#print('Hello WOrld4\n')
+		        				print('Hello WOrld4\n')
 		        			except:
 		        				continue
 		        			for qname in dns.qd:
-		        				#gets your query name
-		        				self.logger.info("The domain name ************ %s \n",qname.name)
+		        				self.logger.info("The domain name ************ %s",qname.name)
 		        				domain = qname.name
-		        				d_len = len(domain)
-		        				for g in range(0:d_len -1)
-		        					if domain[g] != '.'
-		        					
-
-		        				#print('{}'.format(domain))
 		        				#Analysing the subdomain
+
+		        				#print("{}\n".format(qname.name))
 				else:		
 					self.logger.info("NO PCAP **********")
 		#self.logger.info("#######################")
